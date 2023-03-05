@@ -1,5 +1,5 @@
 ﻿using System;
-using WorkShop16;
+using MiniSqlProject;
 
 class Menu
 {
@@ -17,12 +17,12 @@ class Menu
 
             // Display menu options
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("1. List students");
-            Console.WriteLine("2. List courses");
-            Console.WriteLine("3. Create student");
-            Console.WriteLine("4. Create course");
-            Console.WriteLine("5. Change password");
-            Console.WriteLine("6. Edit course");
+            Console.WriteLine("1. List Persons");
+            Console.WriteLine("2. List Projects");
+            Console.WriteLine("3. Create persons");
+            Console.WriteLine("4. Create project");
+            Console.WriteLine("5. Register hours");
+            Console.WriteLine("6. Edit hours");
             Console.WriteLine("7. Delete course");
             Console.WriteLine("A. Terminate");
 
@@ -31,28 +31,28 @@ class Menu
             {
                 case 1:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("1. List students");
+                    Console.WriteLine("1. List persons");
                     //Console.WriteLine("Here is student list");
                     break;
                 case 2:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("2. List courses");
+                    Console.WriteLine("2. List projects");
                     break;
                 case 3:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("3. Create student");
+                    Console.WriteLine("3. Create person");
                     break;
                 case 4:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("4. Create course");
+                    Console.WriteLine("4. Create project");
                     break;
                 case 5:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("5. Change password");
+                    Console.WriteLine("5. Register hours");
                     break;
                 case 6:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("6. Edit course");
+                    Console.WriteLine("6. Edit hours");
                     break;
                 case 7:
                     Console.ForegroundColor = ConsoleColor.Green;
