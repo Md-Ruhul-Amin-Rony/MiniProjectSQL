@@ -1,0 +1,5 @@
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\MiniSqlProject\MiniSqlProject\obj\Debug\net6.0\MiniSqlProject.csproj.AssemblyReference.cache
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\MiniSqlProject\MiniSqlProject\obj\Debug\net6.0\MiniSqlProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\MiniSqlProject\MiniSqlProject\obj\Debug\net6.0\MiniSqlProject.AssemblyInfoInputs.cache
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\MiniSqlProject\MiniSqlProject\obj\Debug\net6.0\MiniSqlProject.AssemblyInfo.cs
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\MiniSqlProject\MiniSqlProject\obj\Debug\net6.0\MiniSqlProject.csproj.CoreCompileInputs.cache
