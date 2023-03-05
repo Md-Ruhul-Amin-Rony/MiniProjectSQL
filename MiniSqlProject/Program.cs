@@ -25,6 +25,13 @@ class Menu
             Console.WriteLine("6. Edit hours");
             Console.WriteLine("7. Delete course");
             Console.WriteLine("A. Terminate");
+            Console.WriteLine("       ↓");
+            Console.WriteLine("       ↓");
+
+            Console.WriteLine();
+            Console.WriteLine("Press the " + "\u2193" +" \u2191"+" key to move down and up.");
+
+
 
             // Highlight selected option
             switch (selection)
@@ -65,7 +72,7 @@ class Menu
             }
 
             Console.ForegroundColor = ConsoleColor.Gray;
-
+        
             // Wait for user input
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -83,29 +90,29 @@ class Menu
                     {
                         case 1:
 
-                            PostgresDataAccess.ListStudents();
+                            PostgresDataAccess.ListPersons();
 
                             break;
                         case 2:
-                            PostgresDataAccess.ListCourses();
+                            PostgresDataAccess.ListProjects();
                             break;
                         case 3:
-                            PostgresDataAccess.CreateStudents();
+                          //  PostgresDataAccess.CreateStudents();
                             break;
                         case 4:
-                            PostgresDataAccess.CreateCourses();
+                            //PostgresDataAccess.CreateCourses();
 
                             break;
                         case 5:
-                            PostgresDataAccess.ChangePasswordByEmail();
+                            //PostgresDataAccess.ChangePasswordByEmail();
 
                             break;
                         case 6:
-                            PostgresDataAccess.EditCourse();
+                            //PostgresDataAccess.EditCourse();
 
                             break;
                         case 7:
-                            PostgresDataAccess.DeleteCourse();
+                           // PostgresDataAccess.DeleteCourse();
 
                             break;
                         case 8:
