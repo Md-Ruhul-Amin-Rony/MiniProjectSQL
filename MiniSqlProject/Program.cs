@@ -89,21 +89,31 @@ class Menu
                     switch (selection)
                     {
                         case 1:
+                           List<PersonModel> listOfPersons =PostgresDataAccess.LoadPersons();
+                            DataLogic.ListPersons(listOfPersons);
 
-                            PostgresDataAccess.ListPersons();
+                            //PostgresDataAccess.ListPersons();
 
                             break;
                         case 2:
-                            PostgresDataAccess.ListProjects();
+                            List<ProjectModel> listOfProjects= PostgresDataAccess.LoadProjects();
+                            DataLogic.ListProjects(listOfProjects);    
+                            //PostgresDataAccess.ListProjects();
                             break;
                         case 3:
+                            DataLogic.CreatePersons();
+
+                           // PostgresDataAccess.CreatePersons();
                           //  PostgresDataAccess.CreateStudents();
                             break;
                         case 4:
+                            DataLogic.CreateProjects(); 
                             //PostgresDataAccess.CreateCourses();
 
                             break;
                         case 5:
+
+                            PostgresDataAccess.RegisterHour();
                             //PostgresDataAccess.ChangePasswordByEmail();
 
                             break;
