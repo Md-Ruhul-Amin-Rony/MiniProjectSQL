@@ -23,7 +23,7 @@ class Menu
             Console.WriteLine("4. Create project");
             Console.WriteLine("5. Register hours");
             Console.WriteLine("6. Edit hours");
-            Console.WriteLine("7. Delete course");
+            Console.WriteLine("7. Worked hours on projects by person");
             Console.WriteLine("A. Terminate");
             Console.WriteLine("       ↓");
             Console.WriteLine("       ↓");
@@ -63,7 +63,7 @@ class Menu
                     break;
                 case 7:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("7. Delete course");
+                    Console.WriteLine("7. Worked hours on projects by person");
                     break;
                 case 8:
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -113,15 +113,18 @@ class Menu
                             break;
                         case 5:
 
-                            PostgresDataAccess.RegisterHour();
+                            DataLogic.RegisterHours();
                             //PostgresDataAccess.ChangePasswordByEmail();
 
                             break;
                         case 6:
+                            //DataLogic.EditHours();
+                          PostgresDataAccess.EditHours();
                             //PostgresDataAccess.EditCourse();
 
                             break;
                         case 7:
+                            PostgresDataAccess.HoursByPerson();
                            // PostgresDataAccess.DeleteCourse();
 
                             break;

@@ -67,7 +67,58 @@ namespace MiniSqlProject
             PostgresDataAccess.CreateProject(newProject);
         }
 
+        public static void RegisterHours()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 5 - Register hour");
 
+            // Get project name from user
+            Console.WriteLine("Enter project name:");
+            string project_name = Console.ReadLine().ToLower();
+            
+            
 
+            // Get person name from user
+            Console.WriteLine("Enter person name:");
+            string person_name = Console.ReadLine().ToLower();
+
+            // Get hour from user
+            Console.WriteLine("Enter hour:");
+            int hour;
+            if (!int.TryParse(Console.ReadLine(), out hour))
+            {
+                Console.WriteLine("Invalid input. Please enter an integer value for hour.");
+                return;
+            }
+
+            PostgresDataAccess.RegisterHour(project_name,person_name,hour);
+        }
+
+        public static void EditHours()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 4 - Edit hours");
+
+            // Get the project name
+            Console.WriteLine("Enter project name:");
+            string project_name = Console.ReadLine().ToLower();
+
+            Console.WriteLine("Enter person name:");
+            string person_name = Console.ReadLine().ToLower();
+            Console.WriteLine("Enter the new hours:");
+            int newHours;
+            bool success = int.TryParse(Console.ReadLine(), out newHours);
+            if (!success)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
+
+            PostgresDataAccess.EditHour(project_name,person_name,newHours);
+
+        }
     }
 }
