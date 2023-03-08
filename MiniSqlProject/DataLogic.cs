@@ -37,13 +37,13 @@ namespace MiniSqlProject
             Console.WriteLine("Selected option 3 - Create new person");
             Console.Write("Enter person name: ");
             string name = Console.ReadLine();
-            
-            
+
+
 
             PersonModel newPerson = new PersonModel
             {
                 person_name = name,
-               
+
             };
 
             PostgresDataAccess.CreatePerson(newPerson);
@@ -75,8 +75,8 @@ namespace MiniSqlProject
             // Get project name from user
             Console.WriteLine("Enter project name:");
             string project_name = Console.ReadLine().ToLower();
-            
-            
+
+
 
             // Get person name from user
             Console.WriteLine("Enter person name:");
@@ -91,7 +91,7 @@ namespace MiniSqlProject
                 return;
             }
 
-            PostgresDataAccess.RegisterHour(project_name,person_name,hour);
+            PostgresDataAccess.RegisterHour(project_name, person_name, hour);
         }
 
         public static void EditHours()
@@ -117,8 +117,26 @@ namespace MiniSqlProject
                 return;
             }
 
-            PostgresDataAccess.EditHour(project_name,person_name,newHours);
+            PostgresDataAccess.EditHour(project_name, person_name, newHours);
 
         }
+
+
+        public static void HoursByPersons()
+        {
+            try
+            {
+                Console.WriteLine("Enter person name:");
+                string personName = Console.ReadLine().ToLower();
+                PostgresDataAccess.HoursByPerson(personName);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid input");
+            }
+
+            //PostgresDataAccess.HoursByPerson(personName);
+        }
     }
+
 }

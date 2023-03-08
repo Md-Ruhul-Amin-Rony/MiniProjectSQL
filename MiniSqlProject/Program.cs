@@ -12,7 +12,7 @@ class Menu
         while (selection != 0)
         {
             Console.Clear();
-            Console.WriteLine("Welcome to the database! Please select one of the options below:");
+            Console.WriteLine("Welcome to the Time Report App! Please select one of the options below:");
             Console.WriteLine();
 
             // Display menu options
@@ -118,13 +118,14 @@ class Menu
 
                             break;
                         case 6:
-                            //DataLogic.EditHours();
-                          PostgresDataAccess.EditHours();
+                            DataLogic.EditHours();
+                          //PostgresDataAccess.EditHours();
                             //PostgresDataAccess.EditCourse();
 
                             break;
                         case 7:
-                            PostgresDataAccess.HoursByPerson();
+                          //  PostgresDataAccess.HoursByPerson();
+                            DataLogic.HoursByPersons();
                            // PostgresDataAccess.DeleteCourse();
 
                             break;

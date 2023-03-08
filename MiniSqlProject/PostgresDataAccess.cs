@@ -272,91 +272,6 @@ namespace MiniSqlProject
         }
 
 
-        public static void EditHours()
-        {
-            Console.Clear();
-            Console.WriteLine("Selected option 6 - Edit hours");
-
-            // Get the project name
-            Console.WriteLine("Enter project name:");
-            string project_name = Console.ReadLine().ToLower();
-
-            // Check if project exists
-            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-            {
-                string checkProject = "SELECT COUNT(*) FROM mra_project WHERE project_name = @project_name";
-                int projectCount = cnn.ExecuteScalar<int>(checkProject, new { project_name });
-                if (projectCount == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The project name does not exist.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
-            }
-
-            // Get the person name
-            Console.WriteLine("Enter person name:");
-            string person_name = Console.ReadLine().ToLower();
-
-            // Check if person exists
-            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-            {
-                string checkPerson = "SELECT COUNT(*) FROM mra_person WHERE person_name = @person_name";
-                int personCount = cnn.ExecuteScalar<int>(checkPerson, new { person_name });
-                if (personCount == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The person name does not exist.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
-            }
-
-            // Get the new hours
-            Console.WriteLine("Enter the new hours:");
-            int newHours;
-            bool success = int.TryParse(Console.ReadLine(), out newHours);
-            if (!success)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Invalid input. Please enter a valid integer.");
-                Console.ResetColor();
-                Console.WriteLine();
-                return;
-            }
-
-            // Update the hours worked
-            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-            {
-                string sql = "UPDATE mra_project_person SET hours = @hours " +
-                             "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
-                             "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name) " +
-                             "AND EXISTS (SELECT 1 FROM mra_project_person " +
-                             "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
-                             "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name))";
-                int rowsUpdated = cnn.Execute(sql, new { hours = newHours, project_name, person_name });
-
-                if (rowsUpdated == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The person is not assigned to the given project.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Hours updated successfully!");
-                Console.ResetColor();
-                Console.WriteLine();
-            }
-
-        }
-
-
         public static void EditHour(string project_name, string person_name, int newHours)
         {
 
@@ -486,6 +401,59 @@ namespace MiniSqlProject
                 {
                     Console.WriteLine("Invalid input. Please enter a valid input");
                 }
+            }
+        }
+
+
+        public static void HoursByPerson(string personName)
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 5 - List hours by person");
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                
+                    cnn.Open();
+                    
+
+                    // Check if person exists
+                    string checkPerson = "SELECT COUNT(*) FROM mra_person WHERE person_name = @personName";
+                    int personCount = cnn.ExecuteScalar<int>(checkPerson, new { personName });
+                    if (personCount == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("The person does not exist.");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        return;
+                    }
+
+                    // Get hours by person
+                    string sql = "SELECT p.project_name, pp.hours " +
+                                 "FROM mra_project p " +
+                                 "JOIN mra_project_person pp ON pp.project_id = p.id " +
+                                 "JOIN mra_person pe ON pp.person_id = pe.id " +
+                                 "WHERE pe.person_name = @personName";
+                    var result = cnn.Query(sql, new { personName });
+
+                    // Display results
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine($"Hours worked by {personName} on different projects:");
+                    Console.ResetColor();
+                    int totalHours = 0;
+                    foreach (var item in result)
+                    {
+                        Console.WriteLine($"{item.project_name}: {item.hours} hours");
+                        totalHours += item.hours;
+                    }
+                    Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
+                    Console.WriteLine("Press enter to go to main");
+                    Console.ReadKey();
+                    Console.Clear();
+                
+                //catch (FormatException e)
+                //{
+                //    Console.WriteLine("Invalid input. Please enter a valid input");
+                //}
             }
         }
 
