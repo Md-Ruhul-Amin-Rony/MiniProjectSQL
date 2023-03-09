@@ -407,8 +407,6 @@ namespace MiniSqlProject
 
         public static void HoursByPerson(string personName)
         {
-            Console.Clear();
-            Console.WriteLine("Selected option 5 - List hours by person");
             using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
             {
                 
@@ -442,7 +440,7 @@ namespace MiniSqlProject
                     int totalHours = 0;
                     foreach (var item in result)
                     {
-                        Console.WriteLine($"{item.project_name}: {item.hours} hours");
+                        Console.WriteLine($"Project name: {item.project_name} : {item.hours} hours");
                         totalHours += item.hours;
                     }
                     Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
@@ -450,10 +448,6 @@ namespace MiniSqlProject
                     Console.ReadKey();
                     Console.Clear();
                 
-                //catch (FormatException e)
-                //{
-                //    Console.WriteLine("Invalid input. Please enter a valid input");
-                //}
             }
         }
 

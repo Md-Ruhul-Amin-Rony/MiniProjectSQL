@@ -11,7 +11,10 @@ namespace MiniSqlProject
         public static void ListPersons(List<PersonModel> persons)
         {
             Console.Clear();
+            Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine("Selected option 1 - List persons");
+            Console.ResetColor();   
+            Console.WriteLine();
             foreach (var person in persons)
             {
                 Console.WriteLine($"Welcome {person.person_name}");
@@ -22,7 +25,9 @@ namespace MiniSqlProject
         public static void ListProjects(List<ProjectModel> projects)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Selected option 2 - List projects");
+            Console.ResetColor();
             foreach (var project in projects)
             {
                 Console.WriteLine($"Project name is: {project.project_name}");
@@ -34,7 +39,9 @@ namespace MiniSqlProject
         public static void CreatePersons()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Selected option 3 - Create new person");
+            Console.ResetColor();
             Console.Write("Enter person name: ");
             string name = Console.ReadLine();
 
@@ -52,7 +59,9 @@ namespace MiniSqlProject
         public static void CreateProjects()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Selected option 4 - Create new project");
+            Console.ResetColor();
             Console.Write("Enter project name: ");
             string name = Console.ReadLine();
 
@@ -70,7 +79,9 @@ namespace MiniSqlProject
         public static void RegisterHours()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Selected option 5 - Register hour");
+            Console.ResetColor();
 
             // Get project name from user
             Console.WriteLine("Enter project name:");
@@ -97,7 +108,9 @@ namespace MiniSqlProject
         public static void EditHours()
         {
             Console.Clear();
-            Console.WriteLine("Selected option 4 - Edit hours");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Selected option 6 - Edit hours");
+            Console.ResetColor();
 
             // Get the project name
             Console.WriteLine("Enter project name:");
@@ -126,6 +139,10 @@ namespace MiniSqlProject
         {
             try
             {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Selected option 7 - Worked hours by person");
+                Console.ResetColor();
                 Console.WriteLine("Enter person name:");
                 string personName = Console.ReadLine().ToLower();
                 PostgresDataAccess.HoursByPerson(personName);
@@ -135,7 +152,7 @@ namespace MiniSqlProject
                 Console.WriteLine("Invalid input. Please enter a valid input");
             }
 
-            //PostgresDataAccess.HoursByPerson(personName);
+            
         }
     }
 
