@@ -60,7 +60,9 @@ namespace MiniSqlProject
         public static void EditPersonNames() 
         {
             Console.Clear();
+            Console.ForegroundColor=ConsoleColor.Green; 
             Console.WriteLine("Selected option 8 - Edit person name:");
+            Console.ResetColor();
             List<PersonModel> persons =PostgresDataAccess.LoadPersons();
             Console.WriteLine("Enter the name of the person you want to edit:");
             string personName = Console.ReadLine().ToLower();
@@ -105,7 +107,9 @@ namespace MiniSqlProject
         public static void EditProjectNames()
         {
             Console.Clear();
+            Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine("Selected option 9 - Edit project name:");
+            Console.ResetColor();
             List<ProjectModel> projects = PostgresDataAccess.LoadProjects();
             Console.WriteLine("Enter the name of the project you want to edit:");
             string projectName = Console.ReadLine().ToLower();
