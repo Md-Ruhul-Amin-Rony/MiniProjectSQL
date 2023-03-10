@@ -36,7 +36,7 @@ The user can view in which projects he has worked and how many hours also.
 |-----|:--------:|
 |Creating perosns and projects |✅     |
 |Assign project to person and hours | ✅    |
-|Edit hour for person to assigned projects|✅     |
+|Edit PersonName,ProjectName & hour for person to assigned projects|✅     |
 |View total working hour for specific person |✅     |
 
 ## Lessons Learned
