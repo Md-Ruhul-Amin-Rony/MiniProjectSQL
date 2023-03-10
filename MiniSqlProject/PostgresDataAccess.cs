@@ -53,13 +53,50 @@ namespace MiniSqlProject
                     Console.ResetColor();
                     Console.WriteLine();
                 }
-                catch (FormatException e)
+                catch 
                 {
                     Console.WriteLine("Invalid input. Please enter a valid input");
                 }
             }
         }
 
+        public static void EditProjectName(string newProjectName, string projectName)
+        {
+
+
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    cnn.Open();
+
+                    // Check if the new name is already in use
+                    string check = "SELECT COUNT(*) FROM mra_project WHERE project_name = @newProjectName";
+                    int count = cnn.ExecuteScalar<int>(check, new { newProjectName });
+                    if (count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("The new name is already in use.");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        return;
+                    }
+
+                    // Update the person's name in the database
+                    string sql = "UPDATE mra_project SET project_name = @newProjectName WHERE project_name = @projectName";
+                    cnn.Execute(sql, new { newProjectName, projectName });
+
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Project name updated successfully!");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                }
+                catch 
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid input");
+                }
+            }
+        }
 
 
 
@@ -208,7 +245,7 @@ namespace MiniSqlProject
                     Console.WriteLine();
                     Console.ResetColor();
                 }
-                catch (FormatException e)
+                catch 
                 {
                     Console.WriteLine("Invalid input. Please enter a valid input");
                 }
@@ -257,7 +294,7 @@ namespace MiniSqlProject
 
 
                 }
-                catch (FormatException e)
+                catch 
                 {
                     Console.WriteLine("Invalid input. Please enter a valid input");
                 }

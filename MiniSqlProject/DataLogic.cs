@@ -60,7 +60,7 @@ namespace MiniSqlProject
         public static void EditPersonNames() 
         {
             Console.Clear();
-            Console.WriteLine("Selected option 5 - Edit person name:");
+            Console.WriteLine("Selected option 8 - Edit person name:");
             List<PersonModel> persons =PostgresDataAccess.LoadPersons();
             Console.WriteLine("Enter the name of the person you want to edit:");
             string personName = Console.ReadLine().ToLower();
@@ -100,6 +100,31 @@ namespace MiniSqlProject
             };
 
             PostgresDataAccess.CreateProject(newProject);
+        }
+
+        public static void EditProjectNames()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 9 - Edit project name:");
+            List<ProjectModel> projects = PostgresDataAccess.LoadProjects();
+            Console.WriteLine("Enter the name of the project you want to edit:");
+            string projectName = Console.ReadLine().ToLower();
+
+            // Check if person exists
+            bool projectExists = projects.Any(p => p.project_name.ToLower() == projectName);
+            if (!projectExists)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Project not found.");
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Enter the new name for the project:");
+            string newProjectName = Console.ReadLine().ToLower();
+
+            PostgresDataAccess.EditProjectName(newProjectName, projectName);
         }
 
         public static void RegisterHours()
@@ -173,7 +198,7 @@ namespace MiniSqlProject
                 string personName = Console.ReadLine().ToLower();
                 PostgresDataAccess.HoursByPerson(personName);
             }
-            catch (FormatException e)
+            catch 
             {
                 Console.WriteLine("Invalid input. Please enter a valid input");
             }

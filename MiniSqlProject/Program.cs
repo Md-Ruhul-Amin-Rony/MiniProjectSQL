@@ -25,6 +25,7 @@ class Menu
             Console.WriteLine("6. Edit hours");
             Console.WriteLine("7. Worked hours on projects by person");
             Console.WriteLine("8. Edit Persons");
+            Console.WriteLine("9. Edit Projects");
             Console.WriteLine("A. Terminate");
             Console.WriteLine("       ↓");
             Console.WriteLine("       ↓");
@@ -72,6 +73,10 @@ class Menu
                     break;
                 case 9:
                     Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("8. Edit Projects");
+                    break;
+                case 10:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("A. Terminate");
                     break;
             }
@@ -85,10 +90,10 @@ class Menu
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selection = (selection == 1) ? 9 : selection - 1;
+                    selection = (selection == 1) ? 10 : selection - 1;
                     break;
                 case ConsoleKey.DownArrow:
-                    selection = (selection == 9) ? 1 : selection + 1;
+                    selection = (selection == 10) ? 1 : selection + 1;
                     break;
                 case ConsoleKey.Enter:
                     switch (selection)
@@ -139,6 +144,9 @@ class Menu
                             DataLogic.EditPersonNames();    
                             break;
                         case 9:
+                            DataLogic.EditProjectNames();
+                            break;
+                        case 10:
                             selection = 0;
                             break;
                     }
