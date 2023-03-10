@@ -73,7 +73,7 @@ class Menu
                     break;
                 case 9:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("8. Edit Projects");
+                    Console.WriteLine("9. Edit Projects");
                     break;
                 case 10:
                     Console.ForegroundColor = ConsoleColor.Green;

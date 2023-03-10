@@ -431,59 +431,7 @@ namespace MiniSqlProject
 
 
 
-        public static void HoursByPerson()
-        {
-            Console.Clear();
-            Console.WriteLine("Selected option 5 - List hours by person");
-            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-            {
-                try
-                {
-                    cnn.Open();
-                    Console.WriteLine("Enter person name:");
-                    string personName = Console.ReadLine().ToLower();
-
-                    // Check if person exists
-                    string checkPerson = "SELECT COUNT(*) FROM mra_person WHERE person_name = @personName";
-                    int personCount = cnn.ExecuteScalar<int>(checkPerson, new { personName });
-                    if (personCount == 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("The person does not exist.");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        return;
-                    }
-
-                    // Get hours by person
-                    string sql = "SELECT p.project_name, pp.hours " +
-                                 "FROM mra_project p " +
-                                 "JOIN mra_project_person pp ON pp.project_id = p.id " +
-                                 "JOIN mra_person pe ON pp.person_id = pe.id " +
-                                 "WHERE pe.person_name = @personName";
-                    var result = cnn.Query(sql, new { personName });
-
-                    // Display results
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine($"Hours worked by {personName} on different projects:");
-                    Console.ResetColor();
-                    int totalHours = 0;
-                    foreach (var item in result)
-                    {
-                        Console.WriteLine($"{item.project_name}: {item.hours} hours");
-                        totalHours += item.hours;
-                    }
-                    Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
-                    Console.WriteLine("Press enter to go to main");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid input");
-                }
-            }
-        }
+        
 
 
         public static void HoursByPerson(string personName)
