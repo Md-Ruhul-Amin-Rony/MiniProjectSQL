@@ -268,55 +268,47 @@ namespace MiniSqlProject
 
 
 
-        //public static void EditHours()
-        //{
-        //    Console.Clear();
-        //    Console.ForegroundColor = ConsoleColor.Green;
-        //    Console.WriteLine("Selected option 6 - Edit hours");
-        //    Console.ResetColor();
-
-        //    // Get the project name
-        //    Console.WriteLine("Enter project name:");
-        //    string project_name = Console.ReadLine().ToLower();
-
-        //    Console.WriteLine("Enter person name:");
-        //    string person_name = Console.ReadLine().ToLower();
-        //    Console.WriteLine("Enter the new hours:");
-        //    int newHours;
-        //    bool success = int.TryParse(Console.ReadLine(), out newHours);
-        //    if (!success)
-        //    {
-        //        Console.ForegroundColor = ConsoleColor.DarkRed;
-        //        Console.WriteLine("Invalid input. Please enter a valid integer.");
-        //        Console.ResetColor();
-        //        Console.WriteLine();
-        //        return;
-        //    }
-
-        //    PostgresDataAccess.EditHour(project_name, person_name, newHours);
-
-        //}
+       
 
 
         public static void HoursByPersons()
         {
-            try
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Selected option 7 - Worked hours by person");
+            Console.ResetColor();
+            Console.WriteLine("Enter person name:");
+           string personName = Console.ReadLine().ToLower();
+
+            // Check if person exists
+            int personCount = PostgresDataAccess.RegisterPersonExists(personName);
+            if (personCount == 0)
             {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Selected option 7 - Worked hours by person");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("The person does not exist.");
                 Console.ResetColor();
-                Console.WriteLine("Enter person name:");
-                string personName = Console.ReadLine().ToLower();
-                PostgresDataAccess.HoursByPerson(personName);
-            }
-            catch 
-            {
-                Console.WriteLine("Invalid input. Please enter a valid input");
+                Console.WriteLine();
+                return;
             }
 
-            
+            // Get hours by person
+            var result = PostgresDataAccess.HoursByPerson(personName);
+
+            // Display results
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Hours worked by {personName} on different projects:");
+            Console.ResetColor();
+            int totalHours = 0;
+            foreach (var item in result)
+            {
+                Console.WriteLine($"Project name: {item.project_name} : {item.hours} hours");
+                totalHours += item.hours;
+            }
+            Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
         }
+
+
     }
+    
 
 }
