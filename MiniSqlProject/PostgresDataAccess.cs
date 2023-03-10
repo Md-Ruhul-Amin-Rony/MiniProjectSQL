@@ -346,10 +346,7 @@ namespace MiniSqlProject
                 }
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Press enter to go to main");
-            Console.ReadKey();
-            Console.Clear();
+            
         }
 
 
@@ -473,9 +470,7 @@ namespace MiniSqlProject
                         totalHours += item.hours;
                     }
                     Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
-                    Console.WriteLine("Press enter to go to main");
-                    Console.ReadKey();
-                    Console.Clear();
+                    
                 
             }
         }
