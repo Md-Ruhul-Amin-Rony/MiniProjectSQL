@@ -158,8 +158,8 @@ namespace MiniSqlProject
                         return;
                     }
 
-                    string sql = "INSERT INTO mra_person (person_name, age, email) " +
-                                 "VALUES (@person_name, @age, @email)";
+                    string sql = "INSERT INTO mra_person (person_name) " +
+                                 "VALUES (@person_name)";
                     cnn.Execute(sql, person);
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("New person has created successfully!");
@@ -203,7 +203,7 @@ namespace MiniSqlProject
                     }
                     string sql = "INSERT INTO mra_project (project_name) " +
                                  "VALUES (@project_name)";
-                    cnn.Execute(sql, new { project });
+                    cnn.Execute(sql, project );
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("New project has created successfully!");
                     Console.WriteLine();
@@ -255,8 +255,10 @@ namespace MiniSqlProject
                     string sqlHour = "INSERT INTO mra_project_person (project_id, person_id, hours) " +
                                      "VALUES (@project_id, @person_id, @hour)";
                     cnn.Execute(sqlHour, new { project_id, person_id, hour });
-
+                    Console.WriteLine();
+                    Console.ForegroundColor= ConsoleColor.DarkYellow;
                     Console.WriteLine($"Hour {hour} registered for {person_name} on project {project_name}.");
+                    Console.ResetColor();
 
                 }
                 catch (Exception e)

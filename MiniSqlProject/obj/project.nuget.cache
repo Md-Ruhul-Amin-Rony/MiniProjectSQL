@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2SM+MgOgtYp5N4vEAx8H197dXwZrJ4cr1fsRrklt0SncCrBuGmPaAf+mLRczd+zHxtpufH/TEp8dkJoLkZdkOQ==",
+  "dgSpecHash": "IQyRKUxXCFVoWEt3R7ej2hDhdO+pW6qnGo+Dt0uV0IkurTHXUWw8frOB4oW58ZSl7x8jL/xDb1YAvWpkJH/lrw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniSqlProject\\MiniSqlProject.csproj",
+  "projectFilePath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniProjectSQL\\MiniSqlProject\\MiniSqlProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adiar\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\adiar\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",

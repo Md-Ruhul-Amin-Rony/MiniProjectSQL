@@ -513,11 +513,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniSqlProject\\MiniSqlProject.csproj",
+      "projectUniqueName": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniProjectSQL\\MiniSqlProject\\MiniSqlProject.csproj",
       "projectName": "MiniSqlProject",
-      "projectPath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniSqlProject\\MiniSqlProject.csproj",
+      "projectPath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniProjectSQL\\MiniSqlProject\\MiniSqlProject.csproj",
       "packagesPath": "C:\\Users\\adiar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniSqlProject\\obj\\",
+      "outputPath": "C:\\Users\\adiar\\OneDrive\\Desktop\\iths\\ithsclass\\MiniSqlProject\\MiniProjectSQL\\MiniSqlProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\adiar\\AppData\\Roaming\\NuGet\\NuGet.Config",

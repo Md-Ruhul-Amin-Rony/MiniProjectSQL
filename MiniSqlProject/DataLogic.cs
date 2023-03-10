@@ -43,7 +43,7 @@ namespace MiniSqlProject
             Console.WriteLine("Selected option 3 - Create new person");
             Console.ResetColor();
             Console.Write("Enter person name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine().ToLower();
 
 
 
@@ -63,7 +63,7 @@ namespace MiniSqlProject
             Console.WriteLine("Selected option 4 - Create new project");
             Console.ResetColor();
             Console.Write("Enter project name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine().ToLower();
 
 
 
