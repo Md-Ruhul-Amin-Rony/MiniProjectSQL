@@ -6,10 +6,14 @@ This is a console application that allows users to manage time reports for diffe
 ## Features
 
 ### Create Person:
-The user can create a new person by providing a name and an email address. If the person already exists, the application will display an error message.
-
+The user can create a new person by providing a name. If the person already exists, the application will display an error message.
+### Edit Person:
+The user can edit name if it is necessary and while editing system will check first if 'name' exist on databasse then it will update with newname that will be given by the user.
 ### Create Project:
-The user can create a new project by providing a name and a description. If the project already exists, the application will display an error message.
+The user can create a new project by providing a name. If the project already exists, the application will display an error message.
+### Edit Project:
+The user can edit project name if it is necessary and while editing system will check first if 'project name' exist on databasse then it will update with newname that will be given by the user.
+
 ### Register Hours:
 The user can register the number of hours that a person has worked on a project. To do so, the user needs to provide the name of the person, the name of the project, and the number of hours worked. If the person or the project does not exist, the application will display an error message.
 ### Edit Hours:
