@@ -153,53 +153,7 @@ namespace MiniSqlProject
         }
 
 
-        //public static void RegisterHour(string project_name, string person_name, int hour)
-        //{
-
-        //    using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-        //    {
-        //        try
-        //        {
-        //            cnn.Open();
-
-        //                // Get project id
-        //                string sqlProject = "SELECT id FROM mra_project WHERE project_name = @project_name";
-        //                int project_id = cnn.ExecuteScalar<int>(sqlProject, new { project_name });
-
-        //                if (project_id == 0)
-        //                {
-        //                    Console.WriteLine("Invalid input. Project name not found.");
-        //                    return;
-        //                }
-
-        //            // Get person id
-        //            string sqlPerson = "SELECT id FROM mra_person WHERE person_name = @person_name";
-        //            int person_id = cnn.ExecuteScalar<int>(sqlPerson, new { person_name });
-
-        //            if (person_id == 0)
-        //            {
-        //                Console.WriteLine("Invalid input. Person name not found.");
-        //                return;
-        //            }
-
-        //            // Insert hour into project_person table
-        //            string sqlHour = "INSERT INTO mra_project_person (project_id, person_id, hours) " +
-        //                             "VALUES (@project_id, @person_id, @hour)";
-        //            cnn.Execute(sqlHour, new { project_id, person_id, hour });
-        //            Console.WriteLine();
-        //            Console.ForegroundColor= ConsoleColor.DarkYellow;
-        //            Console.WriteLine($"Hour {hour} registered for {person_name} on project {project_name}.");
-        //            Console.ResetColor();
-
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine($"An error occurred: {e.Message}");
-        //        }
-        //    }
-
-
-        //}
+       
 
         public static void RegisterHour(int projectId, int personId, int hour)
         {
@@ -218,78 +172,101 @@ namespace MiniSqlProject
             }
         }
 
-
-
-        public static void EditHour(string project_name, string person_name, int newHours)
+        public static void EditHour(int project_id, int person_id, int hours)
         {
-
-
-            // Check if project exists
             using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
             {
-                string checkProject = "SELECT COUNT(*) FROM mra_project WHERE project_name = @project_name";
-                int projectCount = cnn.ExecuteScalar<int>(checkProject, new { project_name });
-                if (projectCount == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The project name does not exist.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
+
+
+                cnn.Open();
+
+                // Insert hour into project_person table
+                cnn.Execute("UPDATE mra_project_person SET hours = @hours WHERE project_id = @project_id AND person_id = @person_id",
+                new { hours, project_id, person_id });
+
+
             }
-
-            // Get the person name
-
-
-            // Check if person exists
+        }
+        public static bool CheckIfPersonAssignedToProject(int person_id, int project_id)
+        {
             using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
             {
-                string checkPerson = "SELECT COUNT(*) FROM mra_person WHERE person_name = @person_name";
-                int personCount = cnn.ExecuteScalar<int>(checkPerson, new { person_name });
-                if (personCount == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The person name does not exist.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
+                cnn.Open();
+                // to check if the person is assigned to the project 
+                return cnn.ExecuteScalar<int>("SELECT COUNT(*) FROM mra_project_person WHERE person_id = @person_id AND project_id = @project_id",
+                    new { person_id, project_id }) > 0;
             }
-
-            // Get the new hours
-
-
-            // Update the hours worked
-            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
-            {
-                string sql = "UPDATE mra_project_person SET hours = @hours " +
-                             "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
-                             "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name) " +
-                             "AND EXISTS (SELECT 1 FROM mra_project_person " +
-                             "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
-                             "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name))";
-                int rowsUpdated = cnn.Execute(sql, new { hours = newHours, project_name, person_name });
-
-                if (rowsUpdated == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("The person is not assigned to the given project.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    return;
-                }
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Hours updated successfully!");
-                Console.ResetColor();
-                Console.WriteLine();
-            }
-
         }
 
 
 
+        //public static void EditHour(string project_name, string person_name, int newHours)
+        //{
+
+
+        //    // Check if project exists
+        //    using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        string checkProject = "SELECT COUNT(*) FROM mra_project WHERE project_name = @project_name";
+        //        int projectCount = cnn.ExecuteScalar<int>(checkProject, new { project_name });
+        //        if (projectCount == 0)
+        //        {
+        //            Console.ForegroundColor = ConsoleColor.DarkRed;
+        //            Console.WriteLine("The project name does not exist.");
+        //            Console.ResetColor();
+        //            Console.WriteLine();
+        //            return;
+        //        }
+        //    }
+
+        //    // Get the person name
+
+
+        //    // Check if person exists
+        //    using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        string checkPerson = "SELECT COUNT(*) FROM mra_person WHERE person_name = @person_name";
+        //        int personCount = cnn.ExecuteScalar<int>(checkPerson, new { person_name });
+        //        if (personCount == 0)
+        //        {
+        //            Console.ForegroundColor = ConsoleColor.DarkRed;
+        //            Console.WriteLine("The person name does not exist.");
+        //            Console.ResetColor();
+        //            Console.WriteLine();
+        //            return;
+        //        }
+        //    }
+
+        //    // Get the new hours
+
+
+        //    // Update the hours worked
+        //    using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        string sql = "UPDATE mra_project_person SET hours = @hours " +
+        //                     "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
+        //                     "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name) " +
+        //                     "AND EXISTS (SELECT 1 FROM mra_project_person " +
+        //                     "WHERE project_id = (SELECT id FROM mra_project WHERE project_name = @project_name) " +
+        //                     "AND person_id = (SELECT id FROM mra_person WHERE person_name = @person_name))";
+        //        int rowsUpdated = cnn.Execute(sql, new { hours = newHours, project_name, person_name });
+
+        //        if (rowsUpdated == 0)
+        //        {
+        //            Console.ForegroundColor = ConsoleColor.DarkRed;
+        //            Console.WriteLine("The person is not assigned to the given project.");
+        //            Console.ResetColor();
+        //            Console.WriteLine();
+        //            return;
+        //        }
+
+        //        Console.ForegroundColor = ConsoleColor.Cyan;
+        //        Console.WriteLine("Hours updated successfully!");
+        //        Console.ResetColor();
+        //        Console.WriteLine();
+        //    }
+
+        //}
 
 
 
@@ -298,7 +275,10 @@ namespace MiniSqlProject
 
 
 
-        
+
+
+
+
 
 
         public static void HoursByPerson(string personName)
