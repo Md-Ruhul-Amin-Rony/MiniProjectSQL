@@ -56,6 +56,32 @@ namespace MiniSqlProject
             PostgresDataAccess.CreatePerson(newPerson);
         }
 
+
+        public static void EditPersonNames() 
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 5 - Edit person name:");
+            List<PersonModel> persons =PostgresDataAccess.LoadPersons();
+            Console.WriteLine("Enter the name of the person you want to edit:");
+            string personName = Console.ReadLine().ToLower();
+
+            // Check if person exists
+            bool personExists = persons.Any(p => p.person_name.ToLower() == personName);
+            if (!personExists)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Person not found.");
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
+
+            Console.WriteLine("Enter the new name for the person:");
+            string newPersonName = Console.ReadLine().ToLower();
+
+            PostgresDataAccess.EditPersonName(newPersonName, personName);
+        }
+
         public static void CreateProjects()
         {
             Console.Clear();

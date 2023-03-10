@@ -24,6 +24,7 @@ class Menu
             Console.WriteLine("5. Register hours");
             Console.WriteLine("6. Edit hours");
             Console.WriteLine("7. Worked hours on projects by person");
+            Console.WriteLine("8. Edit Persons");
             Console.WriteLine("A. Terminate");
             Console.WriteLine("       ↓");
             Console.WriteLine("       ↓");
@@ -67,6 +68,10 @@ class Menu
                     break;
                 case 8:
                     Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("8. Edit Persons");
+                    break;
+                case 9:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("A. Terminate");
                     break;
             }
@@ -80,10 +85,10 @@ class Menu
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selection = (selection == 1) ? 8 : selection - 1;
+                    selection = (selection == 1) ? 9 : selection - 1;
                     break;
                 case ConsoleKey.DownArrow:
-                    selection = (selection == 8) ? 1 : selection + 1;
+                    selection = (selection == 9) ? 1 : selection + 1;
                     break;
                 case ConsoleKey.Enter:
                     switch (selection)
@@ -130,7 +135,10 @@ class Menu
                            // PostgresDataAccess.DeleteCourse();
 
                             break;
-                        case 8:
+                            case 8:
+                            DataLogic.EditPersonNames();    
+                            break;
+                        case 9:
                             selection = 0;
                             break;
                     }

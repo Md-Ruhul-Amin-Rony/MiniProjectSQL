@@ -21,6 +21,48 @@ namespace MiniSqlProject
 
             }
         }
+
+        public static void EditPersonName(string newPersonName, string personName)
+        {
+            
+
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    cnn.Open();
+
+                    // Check if the new name is already in use
+                    string check = "SELECT COUNT(*) FROM mra_person WHERE person_name = @newPersonName";
+                    int count = cnn.ExecuteScalar<int>(check, new { newPersonName });
+                    if (count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("The new name is already in use.");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        return;
+                    }
+
+                    // Update the person's name in the database
+                    string sql = "UPDATE mra_person SET person_name = @newPersonName WHERE person_name = @personName";
+                    cnn.Execute(sql, new { newPersonName, personName });
+
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Person name updated successfully!");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid input");
+                }
+            }
+        }
+
+
+
+
         public static void SaveProject(ProjectModel project)
         {
             using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
@@ -196,7 +238,7 @@ namespace MiniSqlProject
                     if (count > 0)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("The course name is already in use.");
+                        Console.WriteLine("The project name is already in use.");
                         Console.ResetColor();
                         Console.WriteLine();
                         return;
