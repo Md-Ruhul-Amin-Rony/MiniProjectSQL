@@ -111,6 +111,7 @@ class Menu
                             //PostgresDataAccess.ListProjects();
                             break;
                         case 3:
+                           // PersonModel person= new PersonModel();
                             DataLogic.CreatePersons();
 
                            // PostgresDataAccess.CreatePersons();

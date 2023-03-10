@@ -36,6 +36,7 @@ namespace MiniSqlProject
         }
 
 
+
         public static void CreatePersons()
         {
             Console.Clear();
@@ -44,16 +45,25 @@ namespace MiniSqlProject
             Console.ResetColor();
             Console.Write("Enter person name: ");
             string name = Console.ReadLine().ToLower();
+             PersonModel person= new PersonModel { person_name= name };
 
 
-
-            PersonModel newPerson = new PersonModel
+            int count = PostgresDataAccess.CheckIfPersonExists(person.person_name);
+            if (count > 0)
             {
-                person_name = name,
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("The name is already in use.Please try with another name");
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
 
-            };
+            PostgresDataAccess.CreatePerson(person);
 
-            PostgresDataAccess.CreatePerson(newPerson);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("New person has created successfully!");
+            Console.WriteLine();
+            Console.ResetColor();
         }
 
 
@@ -82,33 +92,75 @@ namespace MiniSqlProject
             string newPersonName = Console.ReadLine().ToLower();
 
             PostgresDataAccess.EditPersonName(newPersonName, personName);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You have successfully edited the name of the person {personName} to new name {newPersonName}");
+            Console.ResetColor();
         }
+
 
         public static void CreateProjects()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Selected option 4 - Create new project");
-            Console.ResetColor();
-            Console.Write("Enter project name: ");
-            string name = Console.ReadLine().ToLower();
+            Console.WriteLine("Selected option 4- create projects:");
 
+            Console.WriteLine("Enter project Name:");
+            string project_name = Console.ReadLine().ToLower();
 
-
-            ProjectModel newProject = new ProjectModel
+            // with crosscheck name
+            int count = PostgresDataAccess.CheckIfProjectExists(project_name);
+            if (count > 0)
             {
-                project_name = name,
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("The project name is already in use.");
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
 
-            };
+            var project = new ProjectModel { project_name = project_name };
+            PostgresDataAccess.CreateProject(project);
 
-            PostgresDataAccess.CreateProject(newProject);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("New project has created successfully!");
+            Console.WriteLine();
+            Console.ResetColor();
+           
         }
+
+        //public static void EditProjectNames()
+        //{
+        //    Console.Clear();
+        //    Console.ForegroundColor= ConsoleColor.Green;
+        //    Console.WriteLine("Selected option 9 - Edit project name:");
+        //    Console.ResetColor();
+        //    List<ProjectModel> projects = PostgresDataAccess.LoadProjects();
+        //    Console.WriteLine("Enter the name of the project you want to edit:");
+        //    string projectName = Console.ReadLine().ToLower();
+
+        //    // Check if person exists
+        //    bool projectExists = projects.Any(p => p.project_name.ToLower() == projectName);
+        //    if (!projectExists)
+        //    {
+        //        Console.ForegroundColor = ConsoleColor.DarkRed;
+        //        Console.WriteLine("Project not found.");
+        //        Console.ResetColor();
+        //        Console.WriteLine();
+        //        return;
+        //    }
+
+        //    Console.WriteLine("Enter the new name for the project:");
+        //    string newProjectName = Console.ReadLine().ToLower();
+
+        //    PostgresDataAccess.EditProjectName(newProjectName, projectName);
+        //}
+
 
         public static void EditProjectNames()
         {
             Console.Clear();
-            Console.ForegroundColor= ConsoleColor.Green;
-            Console.WriteLine("Selected option 9 - Edit project name:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Selected option 8 - Edit person name:");
             Console.ResetColor();
             List<ProjectModel> projects = PostgresDataAccess.LoadProjects();
             Console.WriteLine("Enter the name of the project you want to edit:");
@@ -129,7 +181,42 @@ namespace MiniSqlProject
             string newProjectName = Console.ReadLine().ToLower();
 
             PostgresDataAccess.EditProjectName(newProjectName, projectName);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You have successfully edited the name of the project {projectName} to new name {newProjectName}");
+            Console.ResetColor();
         }
+
+
+        //public static void RegisterHours()
+        //{
+        //    Console.Clear();
+        //    Console.ForegroundColor = ConsoleColor.Green;
+        //    Console.WriteLine("Selected option 5 - Register hour");
+        //    Console.ResetColor();
+
+        //    // Get project name from user
+        //    Console.WriteLine("Enter project name:");
+        //    string project_name = Console.ReadLine().ToLower();
+
+
+
+        //    // Get person name from user
+        //    Console.WriteLine("Enter person name:");
+        //    string person_name = Console.ReadLine().ToLower();
+
+        //    // Get hour from user
+        //    Console.WriteLine("Enter hour:");
+        //    int hour;
+        //    if (!int.TryParse(Console.ReadLine(), out hour))
+        //    {
+        //        Console.WriteLine("Invalid input. Please enter an integer value for hour.");
+        //        return;
+        //    }
+
+        //    PostgresDataAccess.RegisterHour(project_name, person_name, hour);
+        //}
+
 
         public static void RegisterHours()
         {
@@ -142,11 +229,25 @@ namespace MiniSqlProject
             Console.WriteLine("Enter project name:");
             string project_name = Console.ReadLine().ToLower();
 
-
+            // Check if project exists
+            int project_id = PostgresDataAccess.RegisterProjectExists(project_name);
+            if (project_id == 0)
+            {
+                Console.WriteLine("Invalid input. Project name not found.");
+                return;
+            }
 
             // Get person name from user
             Console.WriteLine("Enter person name:");
             string person_name = Console.ReadLine().ToLower();
+
+            // Check if person exists
+            int person_id = PostgresDataAccess.RegisterPersonExists(person_name);
+            if (person_id == 0)
+            {
+                Console.WriteLine("Invalid input. Person name not found.");
+                return;
+            }
 
             // Get hour from user
             Console.WriteLine("Enter hour:");
@@ -157,8 +258,13 @@ namespace MiniSqlProject
                 return;
             }
 
-            PostgresDataAccess.RegisterHour(project_name, person_name, hour);
+            PostgresDataAccess.RegisterHour(project_id, person_id, hour);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"Hour {hour} registered for {person_name} on project {project_name}.");
+            Console.ResetColor();
         }
+
+
 
         public static void EditHours()
         {
