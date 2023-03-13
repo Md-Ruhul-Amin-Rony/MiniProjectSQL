@@ -268,7 +268,7 @@ namespace MiniSqlProject
 
 
 
-       
+
 
 
         public static void HoursByPersons()
@@ -278,7 +278,7 @@ namespace MiniSqlProject
             Console.WriteLine("Selected option 7 - Worked hours by person");
             Console.ResetColor();
             Console.WriteLine("Enter person name:");
-           string personName = Console.ReadLine().ToLower();
+            string personName = Console.ReadLine().ToLower();
 
             // Check if person exists
             int personCount = PostgresDataAccess.RegisterPersonExists(personName);
@@ -307,8 +307,81 @@ namespace MiniSqlProject
             Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
         }
 
+        public static void HoursByPersons1()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Selected option 7 - Worked hours by person");
+            Console.ResetColor();
+            Console.WriteLine("Select a person using arrow keys and press Enter:");
+
+            // Get the list of persons
+            var persons = PostgresDataAccess.LoadPersons();
+
+            // Display the list of persons
+            int selectedIndex = 0;
+            while (true)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Selected option 7 - Worked hours by person");
+                Console.ResetColor();
+                Console.WriteLine("Select a person using arrow keys and press Enter:");
+                for (int i = 0; i < persons.Count; i++)
+                {
+                    if (i == selectedIndex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("-> ");
+                    }
+                    else
+                    {
+                        Console.Write("   ");
+                    }
+                    Console.WriteLine(persons[i].person_name);
+                    Console.ResetColor();
+                }
+
+                // Read the arrow keys and update the selection
+                var keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    selectedIndex = (selectedIndex == 0) ? persons.Count - 1 : selectedIndex - 1;
+                }
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    selectedIndex = (selectedIndex == persons.Count - 1) ? 0 : selectedIndex + 1;
+                }
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+            }
+
+            // Get hours by person
+            string personName = persons[selectedIndex].person_name;
+            var result = PostgresDataAccess.HoursByPerson(personName);
+
+            // Display results
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Hours worked by {personName} on different projects:");
+            Console.ResetColor();
+            int totalHours = 0;
+            foreach (var item in result)
+            {
+                Console.WriteLine($"Project name: {item.project_name} : {item.hours} hours");
+                totalHours += item.hours;
+            }
+            Console.WriteLine($"Total hours worked by {personName} is {totalHours}");
+        }
+
+
+
+
+
+
 
     }
-    
+
 
 }

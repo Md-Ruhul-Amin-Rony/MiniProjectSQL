@@ -26,6 +26,7 @@ class Menu
             Console.WriteLine("7. Worked hours on projects by person");
             Console.WriteLine("8. Edit Persons");
             Console.WriteLine("9. Edit Projects");
+            Console.WriteLine("10. Show working hours by using arrow key");
             Console.WriteLine("A. Terminate");
             Console.WriteLine("       ↓");
             Console.WriteLine("       ↓");
@@ -77,6 +78,11 @@ class Menu
                     break;
                 case 10:
                     Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("10. Show Persons working hour by using arrow key");
+                    break;
+
+                case 11:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("A. Terminate");
                     break;
             }
@@ -90,10 +96,10 @@ class Menu
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    selection = (selection == 1) ? 10 : selection - 1;
+                    selection = (selection == 1) ? 11 : selection - 1;
                     break;
                 case ConsoleKey.DownArrow:
-                    selection = (selection == 10) ? 1 : selection + 1;
+                    selection = (selection == 11) ? 1 : selection + 1;
                     break;
                 case ConsoleKey.Enter:
                     switch (selection)
@@ -136,9 +142,11 @@ class Menu
 
                             break;
                         case 7:
-                          //  PostgresDataAccess.HoursByPerson();
-                            DataLogic.HoursByPersons();
-                           // PostgresDataAccess.DeleteCourse();
+                            //  PostgresDataAccess.HoursByPerson();
+                             DataLogic.HoursByPersons();
+                            // PostgresDataAccess.DeleteCourse();
+                            
+
 
                             break;
                             case 8:
@@ -148,6 +156,10 @@ class Menu
                             DataLogic.EditProjectNames();
                             break;
                         case 10:
+                            //Show working hour for persons by úsing arrow key.
+                            DataLogic.HoursByPersons1();
+                            break;
+                        case 11:
                             selection = 0;
                             break;
                     }
